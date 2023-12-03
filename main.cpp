@@ -69,7 +69,7 @@ int main()
     }
     if (choice == 2) // Enter a specific number of words
     {
-        std::cout << "Enter the number of words to be inserted. Must be between 1 and 100,000: ";
+        std::cout << "Enter the number of words to be inserted. Must be between 1 and 117,659: ";
         
         std::cin >> choice;
 
