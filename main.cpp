@@ -9,32 +9,6 @@
 #include "heap.h"
 #include "hashtable.cpp"
 
-/*
-std::pair<std::string, std::string> splitString(std::string& inputString) 
-{
-    // Create a string stream to manipulate the input string
-    std::istringstream iss(inputString);
-
-    // Use getline with ':' as the delimiter to split the string
-    std::string firstPart;
-    std::getline(iss, firstPart, ':');
-
-    // Remove leading and trailing whitespaces from the first part
-    firstPart.erase(firstPart.find_last_not_of(" \t\n\r\f\v") + 1);
-    firstPart.erase(0, firstPart.find_first_not_of(" \t\n\r\f\v"));
-
-    // Get the remaining part of the string
-    std::string secondPart;
-    std::getline(iss, secondPart);
-
-    // Remove leading and trailing whitespaces from the second part
-    secondPart.erase(secondPart.find_last_not_of(" \t\n\r\f\v") + 1);
-    secondPart.erase(0, secondPart.find_first_not_of(" \t\n\r\f\v"));
-
-    return std::make_pair(firstPart, secondPart);
-}
-*/
-
 
 int main() 
 {
