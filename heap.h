@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include "node.cpp"
 
 // struct Node {
 //     std::string word;
