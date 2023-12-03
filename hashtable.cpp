@@ -66,17 +66,18 @@ public:
         }
     }
 
-    void search(const std::string& key) {
+    void search(const std::string& key)  {
         int index = hashFunction(key);
         for (const auto& node : table[index]) {
             if (node->word == key) {
                 std::cout << "Definitions for " << key << ":" << std::endl;
-                for (const auto& definition : node->definitions) {
-                    std::cout << "-" << definition << std::endl;
+                for (const auto& definition : *(node->definitions)) { // dereference the pointer
+                    std::cout << "- " << definition << std::endl;
                 }
                 return;
             }
         }
         std::cout << "Word: " << key << " not found!" << std::endl;
     }
+
 };
