@@ -155,8 +155,9 @@ int main()
     std::cout << "Choose a data structure:" << std::endl;
     std::cout << "1. Hashmap" << std::endl;
     std::cout << "2. Heap" << std::endl;
-    std::cout << "3. Exit" << std::endl;
-    std::cout << "Enter your choice (1 or 2): ";
+    std::cout << "3. Compare Both" << std::endl;
+    std::cout << "4. Exit" << std::endl;
+    std::cout << "Enter your choice (1, 2, 3, or 4): ";
 
     std::cin >> choice;
 
@@ -170,7 +171,12 @@ int main()
     {
         //HashTable::insertFromVector(node_list);
     }
-    else if (choice == 3) // Exit chosen
+    else if (choice == 3) // Compare both chosen
+    {
+        //MinHeap::insertFromVector(node_list);
+        //HashTable::insertFromVector(node_list);
+    }
+    else if (choice == 4) // Exit chosen
     {
         return 0;
     }
@@ -180,7 +186,8 @@ int main()
         return 1;
     }
 
-    for (int i = 0; i < num_words; i++)
+
+    for (int i = 0; i < num_words; i++) // Prints words and defitions. Used for testing purposes
     {
         std::cout << node_list[i]->word << std::endl;
         std::cout << node_list[i]->definitions->at(0) << std::endl;
