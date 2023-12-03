@@ -132,37 +132,26 @@ int main()
     std::cout << "3. Compare Both" << std::endl;
     std::cout << "4. Exit" << std::endl;
     std::cout << "Enter your choice (1, 2, 3, or 4): ";
-
     std::cin >> choice;
-
     std::cout << std::endl;
 
-    // Asks user whether they want to search for a word or print part of the dictionary
-    std::cout << "Choose what you want to do: " << std::endl;
-    std::cout << "1. Search for a word" << std::endl;
-    std::cout << "2. Print a # of words" << std::endl;
-    std::cout << "3. Exit" << std::endl;
-    std::cout << "Enter your choice (1, 2, or 3): ";
 
-    int func_choice; // Choice of functionality
-    std::cin >> func_choice;
 
     MinHeap heap; // Heap object
-    //HashTable hash_map; // Hash Map object
+    HashTable hash_map(9); // Hash Map object
 
     if (choice == 1) // Hash Map chosen
     {
-        //MinHeap::insertFromVector(node_list);
         heap.insertWithVector(node_list);
     }
     else if (choice == 2) // Heap chosen
     {
-        //HashTable::insertFromVector(node_list);
+        hash_map.insertFromVector(node_list);
     }
     else if (choice == 3) // Compare both chosen
     {
-        //heap.insertFromVector(node_list);
-        //hash_map.insertFromVector(node_list);
+        heap.insertWithVector(node_list);
+        hash_map.insertFromVector(node_list);
     }
     else if (choice == 4) // Exit chosen
     {
@@ -173,6 +162,69 @@ int main()
         std::cout << "Invalid choice" << std::endl;
         return 1;
     }
+
+    // Asks user whether they want to search for a word or print part of the dictionary
+    std::cout << "Choose what you want to do: " << std::endl;
+    std::cout << "1. Search for a word" << std::endl;
+    std::cout << "2. Print a # of words" << std::endl;
+    std::cout << "3. Exit" << std::endl;
+    std::cout << "Enter your choice (1, 2, or 3): ";
+    int func_choice; // Choice of functionality
+    std::cin >> func_choice;
+
+    int sub_choice; // Choice of sub-functionality
+
+    if (func_choice == 1) // Search for a word chosen
+    {
+        if (choice == 2 || choice == 3) // If a heap is used
+        {
+            std::cout << "Choose a search method for the heap: " << std::endl;
+            std::cout << "1. Linear Search" << std::endl;
+            std::cout << "2. Binary Search" << std::endl;
+            std::cout << "3. Exit" << std::endl;
+            std::cout << "Enter your choice (1 or 2): ";
+            std::cin >> sub_choice;
+            std::cout << std::endl;
+
+            std::string word_search; // String to store the word to search for
+
+            std::cout << "Enter the word to search for: " << std::endl;
+            std::cin >> word_search;
+            std::cout << std::endl;
+
+            if (sub_choice == 1) // Linear Search chosen
+            {
+                heap.searchAndPrint(word_search);
+
+            }
+            else if (sub_choice == 2) // Binary Search Chosen
+            {
+                heap.searchBinary(word_search);
+            }
+            else if (sub_choice == 3) // Exit chosen
+            {
+                return 0;
+            }
+            else // Invalid choice
+            {
+                std::cout << "Invalid choice" << std::endl;
+                return 1;
+            }
+        }
+    }
+    else if (func_choice == 2) // Print a number of words chosen
+    {
+
+    }
+    else if (func_choice == 3) // Exit chosen
+    {
+        return 0;
+    }
+    else // Invalid choice
+    {
+        std::cout << "Invalid choice" << std::endl;
+        return 1;
+    }   
 
 
 
