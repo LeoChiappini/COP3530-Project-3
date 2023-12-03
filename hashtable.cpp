@@ -10,29 +10,35 @@ struct Node {
 
 class HashTable {
 private:
-    std::vector<std::list<Node>> table;
-    int numBuckets; // Total number of buckets
-    int numEntries; // Total number of entries
-
+    std::vector<std::list<Node*>> table;
+    int numBuckets;
+    int numEntries;
+    //
+    // Hash function
+    //
     int hashFunction(const std::string& key) {
         int hash = 0;
         for (char c : key) hash += c;
         return hash % numBuckets;
     }
-
+    //
+    // Calculate Load Factor
+    //
     float loadFactor() {
         return static_cast<float>(numEntries) / numBuckets;
     }
-
+    //
+    // Resize table and re-ash
+    //
     void resizeTable() {
         int newSize = numBuckets * 2;
-        std::vector<std::list<Node>> newTable(newSize);
+        std::vector<std::list<Node*>> newTable(newSize);
 
         // Rehash all entries
         for (auto& bucket : table) {
             for (auto& node : bucket) {
-                int newIndex = hashFunction(node.word) % newSize;
-                newTable[newIndex].push_back(std::move(node));
+                int newIndex = hashFunction(node->word) % newSize;
+                newTable[newIndex].push_back(node);
             }
         }
 
@@ -45,22 +51,30 @@ public:
         table.resize(numBuckets);
     }
 
-    void insert(Node node) {
+    void insert(Node* node) {
         if (loadFactor() > 0.7) {
             resizeTable();
         }
 
-        int index = hashFunction(node.word);
+        int index = hashFunction(node->word);
         table[index].push_back(node);
         numEntries++;
+    }
+    //
+    // Insert from vector function
+    //
+    void insertFromVector(std::vector<Node*>& vec) {
+        for (const auto& node: vec) {
+            insert(node);
+        }
     }
 
     void search(const std::string& key) {
         int index = hashFunction(key);
         for (const auto& node : table[index]) {
-            if (node.word == key) {
+            if (node->word == key) {
                 std::cout << "Definitions for " << key << ":" << std::endl;
-                for (const auto& definition : node.definitions) {
+                for (const auto& definition : node->definitions) {
                     std::cout << "-" << definition << std::endl;
                 }
                 return;
@@ -68,5 +82,4 @@ public:
         }
         std::cout << "Word: " << key << " not found!" << std::endl;
     }
-
 };
