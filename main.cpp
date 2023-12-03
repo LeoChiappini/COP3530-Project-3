@@ -66,6 +66,8 @@ int main()
     
     std::vector<Node*> node_list; // Vector that will be populated with nodes
 
+    std::unordered_map<std::string, Node*> node_map; // Map that will be populated with nodes
+
     Node* node_temp; // Temporary node pointer to be used to create nodes
 
 
@@ -96,6 +98,8 @@ int main()
         definition.erase(0, definition.find_first_not_of(" \t\n\r\f\v"));
 
         node_temp = new Node(word, definition); // Create a new node
+
+        
 
         node_list.push_back(new Node(word, definition)); // Add the node to the vector
     }
