@@ -3,10 +3,6 @@
 #include <string>
 #include <list>
 
-struct Node {
-    std::string word;
-    std::vector<std::string> definitions;
-};
 
 class HashTable {
 private:
