@@ -3,36 +3,11 @@
 #include <sstream>
 #include <vector>
 #include <unordered_map>
+#include <chrono>
 
 #include "node.cpp"
 #include "heap.h"
 #include "hashtable.cpp"
-
-/*
-std::pair<std::string, std::string> splitString(std::string& inputString) 
-{
-    // Create a string stream to manipulate the input string
-    std::istringstream iss(inputString);
-
-    // Use getline with ':' as the delimiter to split the string
-    std::string firstPart;
-    std::getline(iss, firstPart, ':');
-
-    // Remove leading and trailing whitespaces from the first part
-    firstPart.erase(firstPart.find_last_not_of(" \t\n\r\f\v") + 1);
-    firstPart.erase(0, firstPart.find_first_not_of(" \t\n\r\f\v"));
-
-    // Get the remaining part of the string
-    std::string secondPart;
-    std::getline(iss, secondPart);
-
-    // Remove leading and trailing whitespaces from the second part
-    secondPart.erase(secondPart.find_last_not_of(" \t\n\r\f\v") + 1);
-    secondPart.erase(0, secondPart.find_first_not_of(" \t\n\r\f\v"));
-
-    return std::make_pair(firstPart, secondPart);
-}
-*/
 
 
 int main() 
@@ -136,17 +111,66 @@ int main()
 
     if (choice == 1) // Hash Map chosen
     {
+        // Start measuring time
+        auto start_time = std::chrono::high_resolution_clock::now();
+
         hash_map.insertFromVector(node_list);
+
+        // Stop measuring time
+        auto end_time = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+        std::cout << "Time taken for hashmap insertion: " << duration.count() << " microseconds" << std::endl << std::endl;
     }
     else if (choice == 2) // Heap chosen
     {
-        
+        // Start measuring time
+        auto start_time = std::chrono::high_resolution_clock::now();
+
         heap.insertWithVector(node_list);
+
+        // Stop measuring time
+        auto end_time = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+        std::cout << "Time taken for heap insertion: " << duration.count() << " microseconds" << std::endl << std::endl;
+        
     }
     else if (choice == 3) // Compare both chosen
     {
+        // Start measuring time
+        auto start_time = std::chrono::high_resolution_clock::now();
+
         heap.insertWithVector(node_list);
+
+        // Stop measuring time
+        auto end_time = std::chrono::high_resolution_clock::now();
+
+        auto duration_heap = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+        // Start measuring time
+        start_time = std::chrono::high_resolution_clock::now();
+
         hash_map.insertFromVector(node_list);
+
+        // Stop measuring time
+        end_time = std::chrono::high_resolution_clock::now();
+
+        auto duration_hash = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+        std::cout << "Time taken for heap insertion: " << duration_heap.count() << " microseconds" << std::endl;
+        std::cout << "Time taken for hashmap insertion: " << duration_hash.count() << " microseconds" << std::endl;
+        std::cout << "Difference between heap and hashmap: " << duration_hash.count() - duration_heap.count() << " microseconds" << std::endl << std::endl;
+        if (duration_heap.count() > duration_hash.count())
+        {
+            std::cout << "Hashmap insertion is faster" << std::endl << std::endl;
+        }
+        else
+        {
+            std::cout << "Heap insertion is faster" << std::endl << std::endl;
+        }
     }
     else if (choice == 4) // Exit chosen
     {
@@ -191,14 +215,39 @@ int main()
             std::cin >> word_search;
             std::cout << std::endl;
 
+            auto duration_heap = std::chrono::microseconds();
+            auto duration_hash = std::chrono::microseconds();
+
             if (sub_choice == 1) // Linear Search chosen
             {
+                // Start measuring time
+                auto start_time = std::chrono::high_resolution_clock::now();
+
                 heap.searchAndPrint(word_search);
+
+                // Stop measuring time
+                auto end_time = std::chrono::high_resolution_clock::now();
+
+                auto duration_heap = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+                std::cout << "Time taken for heap linear search: " << duration_heap.count() << " microseconds" << std::endl << std::endl;
+                
 
             }
             else if (sub_choice == 2) // Binary Search Chosen
             {
+                // Start measuring time
+                auto start_time = std::chrono::high_resolution_clock::now();
+
                 heap.searchBinary(word_search);
+
+                // Stop measuring time
+                auto end_time = std::chrono::high_resolution_clock::now();
+
+                duration_heap = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+                std::cout << "Time taken for heap binary search: " << duration_heap.count() << " microseconds" << std::endl << std::endl;
+
             }
             else if (sub_choice == 3) // Exit chosen
             {
@@ -209,6 +258,30 @@ int main()
                 std::cout << "Invalid choice" << std::endl;
                 return 1;
             }
+
+            if (choice == 3)
+            {
+                // Start measuring time
+                auto start_time = std::chrono::high_resolution_clock::now();
+
+                hash_map.search(word_search);
+
+                // Stop measuring time
+                auto end_time = std::chrono::high_resolution_clock::now();
+
+                duration_hash = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+                std::cout << "Time taken for hashmap search: " << duration_hash.count() << " microseconds" << std::endl << std::endl;
+
+                if (duration_heap.count() < duration_hash.count())
+                {
+                    std::cout << "Hashmap search is faster" << std::endl << std::endl;
+                }
+                else
+                {
+                    std::cout << "Heap search is faster" << std::endl << std::endl;
+                }
+            }
         }
         else if (choice == 1) // Hash map is used
         {
@@ -216,7 +289,15 @@ int main()
             std::cin >> word_search;
             std::cout << std::endl;
 
+            auto start_time = std::chrono::high_resolution_clock::now(); // start timing
+
             hash_map.search(word_search);
+
+            auto end_time = std::chrono::high_resolution_clock::now(); // stop timing
+
+            auto duration_hash = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+            std::cout << "Time taken for hashmap search: " << duration_hash.count() << " microseconds" << std::endl << std::endl;
         }
     }
     else if (func_choice == 2) // Print a number of words chosen
