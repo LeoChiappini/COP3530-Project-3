@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <list>
+#include "node.cpp"
 
 
 class HashTable {
