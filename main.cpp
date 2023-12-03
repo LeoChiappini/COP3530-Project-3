@@ -97,11 +97,15 @@ int main()
         definition.erase(definition.find_last_not_of(" \t\n\r\f\v") + 1); // Remove leading and trailing whitespaces from the second part
         definition.erase(0, definition.find_first_not_of(" \t\n\r\f\v"));
 
-        node_temp = new Node(word, definition); // Create a new node
-
+        if (node_map.find(word) != node_map.end()) // If the word is already in the map
+        {
+            node_map[word]->definitions->push_back(definition); // Add the definition to the vector
+        }
+        else
+        {
+            node_list.push_back(new Node(word, definition)); // Add the node to the vector
+        }
         
-
-        node_list.push_back(new Node(word, definition)); // Add the node to the vector
     }
 
     for (int i = 0; i < node_list.size(); ++i)
@@ -110,6 +114,8 @@ int main()
         std::cout << node_list[i]->definitions->at(0) << std::endl;
         std::cout << std::endl;
     }
+
+
 
 
 
