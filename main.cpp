@@ -4,35 +4,9 @@
 #include <vector>
 #include <unordered_map>
 
-
-
-// Declaring a struct to store the word, its definitions, and the other data structure information
-struct Node
-{
-    std::string word;
-    std::vector<std::string>* definitions;
-    
-    Node* next;
-    Node* prev;
-
-    Node(std::string word_in, std::string definition_in)
-    {
-        this->word = word_in;
-
-        this->definitions = new std::vector<std::string>;
-
-        this->definitions->push_back(definition_in);
-
-        this->next = nullptr;
-        this->prev = nullptr;
-    }
-
-    ~Node()
-    {
-        delete this->definitions;
-    }
-
-};
+#include "node.cpp"
+#include "heap.h"
+//#include "hash_table.cpp"
 
 /*
 std::pair<std::string, std::string> splitString(std::string& inputString) 
@@ -120,7 +94,7 @@ int main()
 
     std::string line; // String to store each line of the file
 
-    for (int i = 0; i < 10 && std::getline(file, line); ++i) // Read each line from the file
+    for (int i = 0; i < num_words && std::getline(file, line); ++i) // Read each line from the file
     {
         std::string word; // String to store the word
         std::string definition; // String to store the definition
@@ -163,6 +137,19 @@ int main()
 
     std::cout << std::endl;
 
+    // Asks user whether they want to search for a word or print part of the dictionary
+    std::cout << "Choose what you want to do: " << std::endl;
+    std::cout << "1. Search for a word" << std::endl;
+    std::cout << "2. Print a # of words" << std::endl;
+    std::cout << "3. Exit" << std::endl;
+    std::cout << "Enter your choice (1, 2, or 3): ";
+
+    int func_choice; // Choice of functionality
+    std::cin >> func_choice;
+
+    //MinHeap heap; // Heap object
+    //HashTable hash_map; // Hash Map object
+
     if (choice == 1) // Hash Map chosen
     {
         //MinHeap::insertFromVector(node_list);
@@ -173,8 +160,8 @@ int main()
     }
     else if (choice == 3) // Compare both chosen
     {
-        //MinHeap::insertFromVector(node_list);
-        //HashTable::insertFromVector(node_list);
+        //heap.insertFromVector(node_list);
+        //hash_map.insertFromVector(node_list);
     }
     else if (choice == 4) // Exit chosen
     {
@@ -185,6 +172,16 @@ int main()
         std::cout << "Invalid choice" << std::endl;
         return 1;
     }
+
+
+
+
+    // Word Searching Functionality
+    std::string word_search; // String to store the word to search for
+
+    std::cout << "\nEnter the word to search for: " << std::endl;
+    std::cin >> word_search;
+    std::cout << std::endl;
 
 
     for (int i = 0; i < num_words; i++) // Prints words and defitions. Used for testing purposes
