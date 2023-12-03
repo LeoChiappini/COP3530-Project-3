@@ -6,7 +6,7 @@
 
 #include "node.cpp"
 #include "heap.h"
-//#include "hash_table.cpp"
+#include "hashtable.cpp"
 
 /*
 std::pair<std::string, std::string> splitString(std::string& inputString) 
@@ -147,12 +147,13 @@ int main()
     int func_choice; // Choice of functionality
     std::cin >> func_choice;
 
-    //MinHeap heap; // Heap object
+    MinHeap heap; // Heap object
     //HashTable hash_map; // Hash Map object
 
     if (choice == 1) // Hash Map chosen
     {
         //MinHeap::insertFromVector(node_list);
+        heap.insertWithVector(node_list);
     }
     else if (choice == 2) // Heap chosen
     {
