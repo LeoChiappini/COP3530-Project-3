@@ -38,6 +38,7 @@ private:
         // get the starting index and the final index
         int left = 0, right = heapVec.size() - 1;
         while (left <= right) {
+            std::cout << "Left: " << left << "| Right: " << right << std::endl;
             // get middle value
             int mid = left + (right - left) / 2;
             if (heapVec[mid]->word == target) {
@@ -68,11 +69,12 @@ public:
     void searchAndPrint(const std::string& target) {
         // iterate through heap vector to find target
         for (const auto& node : heapVec) {
-            if (node->word == target) {
+            //std::cout << "test" << std::endl;
+            if (node->word.compare(target) == 0) {
                 std::cout << "Definitions for " << target << ":" << std::endl;
                 // iterate through node's definition vector and display
                 for (const auto& definition : *(node->definitions)) {
-                    std::cout << "-" << definition << std::endl;
+                    std::cout << "- " << definition << std::endl;
                 }
                 return;
             }
@@ -85,6 +87,7 @@ public:
     void searchBinary(const std::string& target) {
         // perform binary search
         int index = binarySearch(target);
+        std::cout << index << std::endl;
         // if the element exists print out and look into node and print definitions
         if (index != -1) {
             std::cout << "Definitions for " << target << ":" << std::endl;

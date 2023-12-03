@@ -43,12 +43,6 @@ int main()
 
     std::unordered_map<std::string, Node*> node_map; // Map that will be populated with nodes
 
-    //Node* node_temp; // Temporary node pointer to be used to create nodes
-
-
-
-
-
     // Handling for menu options
     int choice;
 
@@ -70,8 +64,8 @@ int main()
     if (choice == 2) // Enter a specific number of words
     {
         std::cout << "Enter the number of words to be inserted. Must be between 1 and 117,659: ";
-        
         std::cin >> choice;
+        std::cout << std::endl;
 
         if (choice < 1 || choice > 117659) // Checks bounds of input
         {
@@ -142,11 +136,12 @@ int main()
 
     if (choice == 1) // Hash Map chosen
     {
-        heap.insertWithVector(node_list);
+        hash_map.insertFromVector(node_list);
     }
     else if (choice == 2) // Heap chosen
     {
-        hash_map.insertFromVector(node_list);
+        
+        heap.insertWithVector(node_list);
     }
     else if (choice == 3) // Compare both chosen
     {
@@ -169,13 +164,17 @@ int main()
     std::cout << "2. Print a # of words" << std::endl;
     std::cout << "3. Exit" << std::endl;
     std::cout << "Enter your choice (1, 2, or 3): ";
+
     int func_choice; // Choice of functionality
     std::cin >> func_choice;
+    std::cout << std::endl;
 
     int sub_choice; // Choice of sub-functionality
 
     if (func_choice == 1) // Search for a word chosen
     {
+        std::string word_search; // String to store the word to search for
+
         if (choice == 2 || choice == 3) // If a heap is used
         {
             std::cout << "Choose a search method for the heap: " << std::endl;
@@ -186,7 +185,7 @@ int main()
             std::cin >> sub_choice;
             std::cout << std::endl;
 
-            std::string word_search; // String to store the word to search for
+            
 
             std::cout << "Enter the word to search for: " << std::endl;
             std::cin >> word_search;
@@ -211,10 +210,35 @@ int main()
                 return 1;
             }
         }
+        else if (choice == 1) // Hash map is used
+        {
+            std::cout << "Enter the word to search for: " << std::endl;
+            std::cin >> word_search;
+            std::cout << std::endl;
+
+            hash_map.search(word_search);
+        }
     }
     else if (func_choice == 2) // Print a number of words chosen
     {
+        std::cout << "Enter the number of words to print: ";
+        std::cin >> sub_choice;
 
+        if (sub_choice < 1 || sub_choice > 117659) // Checks bounds of input
+        {
+            std::cout << "Invalid choice" << std::endl;
+            return 1;
+        }
+
+        for (int i = 0; i < sub_choice; i++) // Prints the words and each of its definitions
+        {
+            std::cout << node_list[i]->word << std::endl;
+            for (int j = 0; j < node_list[i]->definitions->size(); j++)
+            {
+                std::cout << node_list[i]->definitions->at(j) << std::endl;
+            }
+            std::cout << std::endl;
+        }
     }
     else if (func_choice == 3) // Exit chosen
     {
@@ -227,22 +251,12 @@ int main()
     }   
 
 
-
-
-    // Word Searching Functionality
-    std::string word_search; // String to store the word to search for
-
-    std::cout << "\nEnter the word to search for: " << std::endl;
-    std::cin >> word_search;
-    std::cout << std::endl;
-
-
-    for (int i = 0; i < num_words; i++) // Prints words and defitions. Used for testing purposes
-    {
-        std::cout << node_list[i]->word << std::endl;
-        std::cout << node_list[i]->definitions->at(0) << std::endl;
-        std::cout << std::endl;
-    }
+    // for (int i = 0; i < num_words; i++) // Prints words and defitions. Used for testing purposes
+    // {
+    //     std::cout << node_list[i]->word << std::endl;
+    //     std::cout << node_list[i]->definitions->at(0) << std::endl;
+    //     std::cout << std::endl;
+    // }
 
 
     file.close(); // Close the file
