@@ -87,7 +87,7 @@ public:
     void searchBinary(const std::string& target) {
         // perform binary search
         int index = binarySearch(target);
-        std::cout << index << std::endl;
+        // std::cout << index << std::endl;
         // if the element exists print out and look into node and print definitions
         if (index != -1) {
             std::cout << "Definitions for " << target << ":" << std::endl;
@@ -95,8 +95,11 @@ public:
                 std::cout << "-" << iter << std::endl;
             }
         }
+        else{
+            std::cout << "Word: " << target << " was not found!" << std::endl;
+        }
         // word not found
-        std::cout << "Word: " << target << " was not found!" << std::endl;
+        
     }
 
     // insert with vector
