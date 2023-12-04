@@ -238,12 +238,12 @@ int main()
             else if (sub_choice == 2) // Binary Search Chosen
             {
 
-                heap.printVec();
+                // heap.printVec();
 
                 // Start measuring time
                 auto start_time = std::chrono::high_resolution_clock::now();
 
-                heap.searchBinary(word_search);
+                heap.SubtreeSearch(word_search);
 
                 // Stop measuring time
                 auto end_time = std::chrono::high_resolution_clock::now();

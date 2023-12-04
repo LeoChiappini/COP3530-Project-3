@@ -34,26 +34,7 @@ private:
         }
     }
 
-    int binarySearch(const std::string& target) {
-        // get the starting index and the final index
-        int left = 0, right = heapVec.size() - 1;
-        while (left <= right) {
-            std::cout << "Left: " << left << "| Right: " << right << std::endl;
-            // get middle value
-            int mid = left + (right - left) / 2;
-            if (heapVec[mid]->word == target) {
-                // return the index of the target word
-                return mid;
-            } else if (heapVec[mid]->word < target) {
-                // if target > mid look into second half
-                left = mid + 1;
-            } else {
-                // if target < mid look into first half
-                right = mid - 1; 
-            }  
-        }
-        return -1; // if item never found
-    }
+    
 
 public:
     // insert the node and heapify
@@ -83,23 +64,45 @@ public:
         std::cout << "Word: " << target << " was not found!" << std::endl;
     }
 
-    // binary search for better complexity
-    void searchBinary(const std::string& target) {
-        // perform binary search
-        int index = binarySearch(target);
-        // std::cout << index << std::endl;
-        // if the element exists print out and look into node and print definitions
-        if (index != -1) {
-            std::cout << "Definitions for " << target << ":" << std::endl;
-            for (const auto& iter : *(heapVec[index]->definitions)) {
-                std::cout << "-" << iter << std::endl;
-            }
+    // search subtree
+    bool searchSubtree(int index, const std::string& target) {
+        if (index >= heapVec.size()) {
+            return false; // Index out of bounds, return false
         }
-        else{
+
+        // Check if the current node contains the target word
+        if (heapVec[index]->word == target) {
+            std::cout << "Definitions for " << target << ":" << std::endl;
+            for (const auto& definition : *(heapVec[index]->definitions)) {
+                std::cout << "- " << definition << std::endl;
+            }
+            return true; // Target word found
+        }
+
+        // Recursively check left and right subtrees if needed
+        int leftChild = 2 * index + 1;
+        int rightChild = 2 * index + 2;
+
+        bool found = false;
+
+        // Check left subtree if it exists and if the word might be present
+        if (leftChild < heapVec.size() && heapVec[leftChild]->word <= target) {
+            found = searchSubtree(leftChild, target);
+        }
+
+        // If not found in left subtree, check right subtree if it exists and if the word might be present
+        if (!found && rightChild < heapVec.size() && heapVec[rightChild]->word <= target) {
+            found = searchSubtree(rightChild, target);
+        }
+
+        return found;
+    }
+
+    // Search function entry point
+    void SubtreeSearch(const std::string& target) {
+        if (!searchSubtree(0, target)) {
             std::cout << "Word: " << target << " was not found!" << std::endl;
         }
-        // word not found
-        
     }
 
     // insert with vector
