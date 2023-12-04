@@ -70,7 +70,7 @@ public:
         int index = hashFunction(key);
         for (const auto& node : table[index]) {
             if (node->word == key) {
-                std::cout << "Definitions for " << key << ":" << std::endl;
+                std::cout << "Hashmap Definitions for " << key << ":" << std::endl;
                 for (const auto& definition : *(node->definitions)) { // dereference the pointer
                     std::cout << "- " << definition << std::endl;
                 }

@@ -82,12 +82,14 @@ int main()
         definition.erase(0, definition.find_first_not_of(" \t\n\r\f\v"));
 
         if (node_map.find(word) != node_map.end()) // If the word is already in the map
-        {
+        {  
+            // std::cout << "double word" << std::endl;
             node_map[word]->definitions->push_back(definition); // Add the definition to the vector
         }
         else
         {
             node_list.push_back(new Node(word, definition)); // Add the node to the vector
+            node_map[word] = node_list.back(); // Add the node to the map
         }
         
     }
@@ -204,7 +206,7 @@ int main()
         {
             std::cout << "Choose a search method for the heap: " << std::endl;
             std::cout << "1. Linear Search" << std::endl;
-            std::cout << "2. Binary Search" << std::endl;
+            std::cout << "2. Subtree Search" << std::endl;
             std::cout << "3. Exit" << std::endl;
             std::cout << "Enter your choice (1 or 2): ";
             std::cin >> sub_choice;
@@ -229,16 +231,14 @@ int main()
                 // Stop measuring time
                 auto end_time = std::chrono::high_resolution_clock::now();
 
-                auto duration_heap = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+                duration_heap = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
                 std::cout << "Time taken for heap linear search: " << duration_heap.count() << " microseconds" << std::endl << std::endl;
                 
 
             }
-            else if (sub_choice == 2) // Binary Search Chosen
+            else if (sub_choice == 2) // Subtree Search Chosen
             {
-
-                // heap.printVec();
 
                 // Start measuring time
                 auto start_time = std::chrono::high_resolution_clock::now();
@@ -277,7 +277,7 @@ int main()
 
                 std::cout << "Time taken for hashmap search: " << duration_hash.count() << " microseconds" << std::endl << std::endl;
 
-                if (duration_heap.count() < duration_hash.count())
+                if (duration_heap.count() > duration_hash.count())
                 {
                     std::cout << "Hashmap search is faster" << std::endl << std::endl;
                 }

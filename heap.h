@@ -72,10 +72,16 @@ public:
 
         // Check if the current node contains the target word
         if (heapVec[index]->word == target) {
-            std::cout << "Definitions for " << target << ":" << std::endl;
+            std::cout << "Heap Definitions for " << target << ":" << std::endl;
+            /*
             for (const auto& definition : *(heapVec[index]->definitions)) {
                 std::cout << "- " << definition << std::endl;
             }
+            */
+           // std::cout << "Size: " << heapVec[index]->definitions->size() << std::endl;
+           for (int i = 0; i < heapVec[index]->definitions->size(); i++) {
+               std::cout << "- " << heapVec[index]->definitions->at(i) << std::endl;
+           }
             return true; // Target word found
         }
 
