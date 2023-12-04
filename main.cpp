@@ -250,7 +250,7 @@ int main()
 
                 duration_heap = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-                std::cout << "Time taken for heap binary search: " << duration_heap.count() << " microseconds" << std::endl << std::endl;
+                std::cout << "Time taken for heap subtree search: " << duration_heap.count() << " microseconds" << std::endl << std::endl;
 
             }
             else if (sub_choice == 3) // Exit chosen
