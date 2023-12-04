@@ -12,6 +12,7 @@
 
 int main() 
 {
+
     std::string filePath = "english_dictionary.txt";  // File path to the dictionary text file
 
     std::vector<Node*> node_list; // Vector that will be populated with nodes
@@ -162,7 +163,7 @@ int main()
 
         std::cout << "Time taken for heap insertion: " << duration_heap.count() << " microseconds" << std::endl;
         std::cout << "Time taken for hashmap insertion: " << duration_hash.count() << " microseconds" << std::endl;
-        std::cout << "Difference between heap and hashmap: " << duration_hash.count() - duration_heap.count() << " microseconds" << std::endl << std::endl;
+        std::cout << "Difference between heap and hashmap: " << std::abs(duration_hash.count() - duration_heap.count()) << " microseconds" << std::endl << std::endl;
         if (duration_heap.count() > duration_hash.count())
         {
             std::cout << "Hashmap insertion is faster" << std::endl << std::endl;
@@ -236,6 +237,9 @@ int main()
             }
             else if (sub_choice == 2) // Binary Search Chosen
             {
+
+                heap.printVec();
+
                 // Start measuring time
                 auto start_time = std::chrono::high_resolution_clock::now();
 
